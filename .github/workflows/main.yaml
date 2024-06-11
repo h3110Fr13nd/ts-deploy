@@ -1,0 +1,63 @@
+name: Deploy on tailscale prod server
+
+on:
+  push:
+    branches:
+      - feat-prod-ci-cd
+
+env:
+  CONTAINER_NAME: hello-world-production
+  TS_SSH_USERNAME: ${{ secrets.TS_SSH_USERNAME }}
+  TS_INSTANCE_IP: ${{ secrets.TS_INSTANCE_IP_STAGING }}
+  TS_SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY_STAGING }}
+  IMAGE_TAG: ${{ github.sha }}
+  FOLDER: /home/h3110fr13nd/Desktop/dev/community/ljosc/ts-deploy
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+    #   - name: Build, tag, and save docker image
+    #     id: build-image
+    #     env:
+    #       IMAGE_TAG: ${{ github.sha }}
+    #     run: |
+    #       docker-compose build
+          
+    #   - name: Save Docker images to tarballs
+    #     run: |
+    #       mkdir -p images
+    #       services=$(docker-compose --services)
+    #       for service in $services; do
+    #         image=$(docker-compose | grep "image:" | awk '{print $2}')
+    #         docker save $image -o images/$service.tar
+    #       done
+
+      - name: Tailscale
+        uses: tailscale/github-action@v2
+        with:
+            oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+            oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+            tags: tag:ci
+          
+    #   - name: Setup SSH for EC2
+    #     uses: omarhosny206/setup-ssh-for-ec2@v1.0.0
+    #     with:
+    #       TS_SSH_PRIVATE_KEY: $TS_SSH_PRIVATE_KEY
+    #       TS_URL: $TS_URL
+    #       IMAGE_TAG: ${{ github.sha }}
+
+    #   - name: Copy docker-compose file and images to remote server
+    #     run: |
+    #       scp -o StrictHostKeyChecking=no docker-compose.yml $TS_SSH_USERNAME@$TS_INSTANCE_IP:$FOLDER/docker-compose.yml
+    #       scp -o StrictHostKeyChecking=no images/*.tar $TS_SSH_USERNAME@$TS_INSTANCE_IP:/home/ljosc/Community-Manager-Bot/images/
+
+      - name: Update backend container
+        run: |
+          ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP echo hello-world > $FOLDER/hello-world.txt
