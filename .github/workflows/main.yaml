@@ -61,4 +61,4 @@ jobs:
           pwd;\
           ls;\
           whoami;\
-          echo hello-world > $FOLDER/hello-world.txt;\
+          echo hello-world > $FOLDER/hello-world.txt;"
