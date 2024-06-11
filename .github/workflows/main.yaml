@@ -47,12 +47,12 @@ jobs:
             # oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
             # tags: tag:ci
           
-    #   - name: Setup SSH for EC2
-    #     uses: omarhosny206/setup-ssh-for-ec2@v1.0.0
-    #     with:
-    #       TS_SSH_PRIVATE_KEY: $TS_SSH_PRIVATE_KEY
-    #       TS_URL: $TS_URL
-    #       IMAGE_TAG: ${{ github.sha }}
+      # - name: Setup SSH for EC2
+      #   uses: omarhosny206/setup-ssh-for-ec2@v1.0.0
+      #   with:
+      #     TS_SSH_PRIVATE_KEY: $TS_SSH_PRIVATE_KEY
+      #     TS_URL: $TS_URL
+      #     IMAGE_TAG: ${{ github.sha }}
 
     #   - name: Copy docker-compose file and images to remote server
     #     run: |
