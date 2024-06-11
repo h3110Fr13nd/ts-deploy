@@ -3,7 +3,7 @@ name: Deploy on tailscale prod server
 on:
   push:
     branches:
-      - feat-prod-ci-cd
+      - main
 
 env:
   CONTAINER_NAME: hello-world-production
