@@ -61,4 +61,7 @@ jobs:
 
       - name: Update backend container
         run: |
+          ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP pwd
+          ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP ls
+          ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP whoami
           ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP echo hello-world > $FOLDER/hello-world.txt
