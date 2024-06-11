@@ -55,7 +55,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
       - name: Update backend container
         run: |
-          ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_URL "\
+          ssh -o StrictHostKeyChecking=no $TS_SSH_USERNAME@$TS_INSTANCE_IP "\
           ping rog -c 5;\
           ping aws -c 5;\
           pwd;\
