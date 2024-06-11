@@ -42,9 +42,10 @@ jobs:
       - name: Tailscale
         uses: tailscale/github-action@v2
         with:
-            oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-            oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-            tags: tag:ci
+            authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+            # oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+            # oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+            # tags: tag:ci
           
     #   - name: Setup SSH for EC2
     #     uses: omarhosny206/setup-ssh-for-ec2@v1.0.0
